@@ -30,5 +30,28 @@ public class Comportamiento extends CyclicBehaviour {
 	public void Buscar() {
 		return;
 	}
+public static void enviarMensaje(Agent agent, String tipo, Object objeto){
+		
+		DFAgentDescription dfd= Buscar();
+		try
+		{
+		if(dfd!=null){
+		ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
+		aclMessage.addReceiver(dfd.getName());
+		aclMessage.setOntology("ontologia");
+		aclMessage.setLanguage(new SLCodec().getName());
+		aclMessage.setEnvelope(new Envelope());
+		aclMessage.getEnvelope().setPayloadEncoding("ISO8859_1");
+		aclMessage.setContentObject((Serializable)objeto);
+		agent.send(aclMessage);
+		}
+		}
+		catch(IOException e)
+		{
+		JOptionPane.showMessageDialog(null, "Agente "+agent.getName()+": "+e.getMessage(), "Error",
+		JOptionPane.ERROR_MESSAGE);
+		e.printStackTrace();
+		}
+	}
 
 }
