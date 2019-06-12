@@ -29,6 +29,7 @@ public class Comportamiento extends CyclicBehaviour {
 				System.out.println("if "+(String)msg.getContentObject());
 				aclMessage.addReceiver(msg.getSender());
 				System.out.println((String)msg2.getContentObject());
+				//lamada a metodo
 				aclMessage.setContentObject((Serializable)msg2.getContentObject());
 			}
 			else {
@@ -51,6 +52,5 @@ public class Comportamiento extends CyclicBehaviour {
 			e.printStackTrace();
 		}
 		this.myAgent.send(aclMessage);  
-
 	}
 }
