@@ -13,9 +13,10 @@ public class Agente_Comportamiento extends Agent {
 	public void setup() {
 		DFAgentDescription directorio = new DFAgentDescription();
 		directorio.setName(getAID());
+		System.out.println(directorio.getName());
 		ServiceDescription servicio = new ServiceDescription();
 		servicio.setName("Buscador");
-		servicio.setType("búsqueda");
+		servicio.setType("busqueda");
 		servicio.addOntologies("Ontologia");
 		servicio.addLanguages(new SLCodec().getName());
 		directorio.addServices(servicio);
@@ -26,6 +27,7 @@ public class Agente_Comportamiento extends Agent {
 			System.err.println("Error " +e.getMessage());
 		}
 		addBehaviour(new Comportamiento());
+		//Comunicaciones.enviarMensaje(this.myAgent, "buscar", temp);
 	}
 
 }

@@ -1,57 +1,56 @@
 package intel.pract;
 
+import java.io.IOException;
+import java.io.Serializable;
+
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.Envelope;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 
 public class Comportamiento extends CyclicBehaviour {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public void action() {
+		ACLMessage msg=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+		ACLMessage msg2=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+		//System.out.println("hola");
+		ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
 		try {
-			System.out.println(msg.getSender().getName()+":"+ (String)msg.getContentObject());
-			//Llamada a Buscar
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
-			aclMessage.addReceiver(msg.getSender());
-			
+			if(((String)msg.getContentObject()).equals("Soy resultado")) {
+				System.out.println("if "+(String)msg.getContentObject());
+				aclMessage.addReceiver(msg.getSender());
+				System.out.println((String)msg2.getContentObject());
+				aclMessage.setContentObject((Serializable)msg2.getContentObject());
+			}
+			else {
+				System.out.println((String)msg2.getContentObject());
+				aclMessage.addReceiver(msg2.getSender());
+				System.out.println("else "+(String)msg.getContentObject());
+				aclMessage.setContentObject((Serializable)msg.getContentObject());
+			}
+			//Comunicaciones.buscarAgente(this, "resultados");
+			//aclMessage.addReceiver(msg.getSender());
+			aclMessage.setOntology("ontologia");
+			aclMessage.setLanguage(new SLCodec().getName());
+			aclMessage.setEnvelope(new Envelope());
+			aclMessage.getEnvelope().setPayloadEncoding("ISO8859_1");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnreadableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch() {
-			
-		}
-		return;
-	}
-	
-	public void Buscar() {
-		return;
-	}
-public static void enviarMensaje(Agent agent, String tipo, Object objeto){
-		
-		DFAgentDescription dfd= Buscar();
-		try
-		{
-		if(dfd!=null){
-		ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-		aclMessage.addReceiver(dfd.getName());
-		aclMessage.setOntology("ontologia");
-		aclMessage.setLanguage(new SLCodec().getName());
-		aclMessage.setEnvelope(new Envelope());
-		aclMessage.getEnvelope().setPayloadEncoding("ISO8859_1");
-		aclMessage.setContentObject((Serializable)objeto);
-		agent.send(aclMessage);
-		}
-		}
-		catch(IOException e)
-		{
-		JOptionPane.showMessageDialog(null, "Agente "+agent.getName()+": "+e.getMessage(), "Error",
-		JOptionPane.ERROR_MESSAGE);
-		e.printStackTrace();
-		}
-	}
+		this.myAgent.send(aclMessage);  
 
+	}
 }
