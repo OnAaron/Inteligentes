@@ -41,4 +41,7 @@ public class Comunicaciones {
 		}
 		return null;
 	}
+	public static void enviarMensaje() {
+		
+	}
 }
