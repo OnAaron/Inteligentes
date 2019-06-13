@@ -67,8 +67,6 @@ public class Comportamiento extends CyclicBehaviour {
 			c = txt.charAt(conTxt);
 			tS = Character.toString(t);
 			cS = Character.toString(c);
-			System.out.println("tS : " + tS + "\n");
-			System.out.println("cS : " + cS + "\n");
 			if(!tS.equalsIgnoreCase(cS)) {
 				result = false;
 			}
@@ -101,7 +99,7 @@ public class Comportamiento extends CyclicBehaviour {
 		}
 		return lista;
 	}
-
+	
 	public static boolean coincide2(String txt, String clave, int conTxt) {
 		boolean result = true;
 		int conCl = 0;
@@ -150,8 +148,7 @@ public class Comportamiento extends CyclicBehaviour {
 		lista.add(clave.length());
 		while(conTxt < txt.length()) {
 			t = txt.charAt(conTxt);
-			if((t == ' ') || (t == ',') || (t == '.')){
-				System.out.println("PalTxt :" + palTxt + "\n");
+			if((t >= 0  && t <= 47) || (t >= 58 && t <= 64) || (t >= 91 && t <= 96) || (t >= 123 && t <= 126)){
 				if(palTxt.equalsIgnoreCase(clave)) {
 					lista.add(puntero);
 				}
@@ -176,8 +173,7 @@ public class Comportamiento extends CyclicBehaviour {
 		lista.add(clave.length());
 		while(conTxt < txt.length()) {
 			t = txt.charAt(conTxt);
-			if((t == ' ') || (t == ',') || (t == '.')){
-				System.out.println("PalTxt :" + palTxt + "\n");
+			if((t >= 0  && t <= 47) || (t >= 58 && t <= 64) || (t >= 91 && t <= 96) || (t >= 123 && t <= 126)){
 				if(palTxt.equals(clave)) {
 					lista.add(puntero);
 				}
