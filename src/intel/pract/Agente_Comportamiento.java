@@ -27,7 +27,6 @@ public class Agente_Comportamiento extends Agent {
 			System.err.println("Error " +e.getMessage());
 		}
 		addBehaviour(new Comportamiento());
-		//Comunicaciones.enviarMensaje(this.myAgent, "buscar", temp);
 	}
 
 }

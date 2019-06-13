@@ -51,16 +51,25 @@ public class Agente_Resultado extends Agent{
 		addBehaviour(new CyclicBehaviour(this){
 			private static final long serialVersionUID = 1L;
 
+			@SuppressWarnings("unchecked")
 			public void action() {
-				
+				if(ventana == null) {
+					ventana  = new ventana_cliente();
+				}
 				Comunicaciones.enviarMensaje(this.myAgent, "busqueda", "Soy resultado");
-				ACLMessage msg=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
-				ACLMessage msg2=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+				ACLMessage msg=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));//text original
+				ACLMessage msg2=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));//lista indices
 				try {
-					System.out.println((String)msg.getContentObject());
-					
+					@SuppressWarnings("unchecked")
+					ArrayList<Integer> r = (ArrayList<Integer>)msg2.getContentObject();
+					for(int i=0;i<r.size();i++) System.out.println(r.get(i));
 					try {
-						ventana = new ventana_cliente((String)msg.getContentObject());
+						//ventana = new ventana_cliente((String)msg.getContentObject(),(ArrayList<Integer>)msg2.getContentObject());
+						ventana.setText((String)msg.getContentObject());
+						ventana.setLista((ArrayList<Integer>)msg2.getContentObject());
+						System.out.println(ventana.text);
+						System.out.println(ventana.res.toString());
+						ventana.initialize();
 						ventana.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -71,23 +80,5 @@ public class Agente_Resultado extends Agent{
 				}
 			}
 		});
-	}
-	public void pintar(JTextArea area, ArrayList<Integer> lista) {
-		if (area.getText().length() >= 1) {
-            DefaultHighlighter.DefaultHighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.GREEN);
-            Highlighter h = area.getHighlighter();
-            h.removeAllHighlights();
-            //String text = area.getText();
-            int tam = lista.get(0);
-            for(int i=1;i<lista.size();i++) {
-                try {
-                    h.addHighlight(lista.get(i), lista.get(i)+tam, highlightPainter);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(Color.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(area, "la palabra a buscar no puede ser vacia");
-        }
 	}
 }
