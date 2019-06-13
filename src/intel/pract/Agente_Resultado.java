@@ -2,6 +2,7 @@ package intel.pract;
 
 import java.util.Scanner;
 
+import intel.ventana.ventana_cliente;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 
@@ -19,6 +20,7 @@ public class Agente_Resultado extends Agent{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	static ventana_cliente ventana;
 
 	public void setup() {
 		System.out.println("Soy el agente Resultado");
@@ -41,10 +43,18 @@ public class Agente_Resultado extends Agent{
 			private static final long serialVersionUID = 1L;
 
 			public void action() {
+				
 				Comunicaciones.enviarMensaje(this.myAgent, "busqueda", "Soy resultado");
 				ACLMessage msg=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
 				try {
 					System.out.println((String)msg.getContentObject());
+					
+					try {
+						ventana = new ventana_cliente((String)msg.getContentObject());
+						ventana.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				} catch (UnreadableException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
