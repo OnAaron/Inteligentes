@@ -2,6 +2,7 @@ package intel.pract;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
@@ -52,5 +53,40 @@ public class Comportamiento extends CyclicBehaviour {
 			e.printStackTrace();
 		}
 		this.myAgent.send(aclMessage);  
+	}
+
+	public static boolean coincide(String txt, String clave, int conTxt) {
+		boolean result = true;
+		int conCl = 0;
+		char t;
+		char c;
+		while((conCl< clave.length()) && result) {
+			t = clave.charAt(conCl);
+			c = txt.charAt(conTxt);
+			if(c != t) {
+				result = false;
+			}
+			conTxt++;
+			conCl++;
+		}
+		return result;
+	}
+	public static ArrayList algoritmo(String txt, String clave) {
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		int conTxt = 0;
+		int conCl = 0;
+		char t;
+		char c;
+		while(conTxt < txt.length()) {
+			t = txt.charAt(conTxt);
+			c = clave.charAt(conCl);
+			if(t == c) {
+				if(coincide(txt,clave,conTxt)) {
+					lista.add(conTxt);
+				}
+			}
+			conTxt++;
+		}
+		return lista;
 	}
 }
