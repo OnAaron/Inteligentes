@@ -21,12 +21,19 @@ public class Comportamiento extends CyclicBehaviour {
 	private static final long serialVersionUID = 1L;
 
 	public void action() {
+		//Msg de resultados
 		ACLMessage msg=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+		//Msg texto
 		ACLMessage msg2=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
-		//System.out.println("hola");
+		//Msg patron
+		ACLMessage msg3=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+		//Msg modo
+		ACLMessage msg4=this.myAgent.blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
 		ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
+		ACLMessage aclMessage2 = new ACLMessage(ACLMessage.INFORM);
+		
 		try {
-			if(((String)msg.getContentObject()).equals("Soy resultado")) {
+			/*if(((String)msg.getContentObject()).equals("Soy resultado")) {
 				System.out.println("if "+(String)msg.getContentObject());
 				aclMessage.addReceiver(msg.getSender());
 				System.out.println((String)msg2.getContentObject());
@@ -38,9 +45,11 @@ public class Comportamiento extends CyclicBehaviour {
 				aclMessage.addReceiver(msg2.getSender());
 				System.out.println("else "+(String)msg.getContentObject());
 				aclMessage.setContentObject((Serializable)msg.getContentObject());
-			}
-			//Comunicaciones.buscarAgente(this, "resultados");
-			//aclMessage.addReceiver(msg.getSender());
+			}*/
+			aclMessage.addReceiver(msg.getSender());
+			aclMessage2.addReceiver(msg.getSender());
+			aclMessage.setContentObject((Serializable)msg2.getContentObject());
+			aclMessage2.setContentObject((Serializable)buscar((String)msg2.getContentObject(),(String)msg3.getContentObject(),(String)msg4.getContentObject()));
 			aclMessage.setOntology("ontologia");
 			aclMessage.setLanguage(new SLCodec().getName());
 			aclMessage.setEnvelope(new Envelope());
@@ -52,9 +61,32 @@ public class Comportamiento extends CyclicBehaviour {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.myAgent.send(aclMessage);  
+		this.myAgent.send(aclMessage);
+		this.myAgent.send(aclMessage2);
 	}
 
+	public static ArrayList<Integer> buscar(String text, String pattern,String modo){
+		ArrayList<Integer> res = null;
+		switch(Integer.parseInt(modo)) {
+		case 1:{
+			//PaSimple+No coinicde
+			break;
+		}
+		case 2:{
+			//PaSimple + Coincide
+			break;
+		}
+		case 3:{
+			//Completa+No coinc
+			break;
+		}
+		case 4:{
+			//Compñeta+Coind
+			break;
+		}
+		}
+		return res;
+	}
 	public static boolean coincide(String txt, String clave, int conTxt) {
 		boolean result = true;
 		int conCl = 0;
