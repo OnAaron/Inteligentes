@@ -54,8 +54,55 @@ public class Comportamiento extends CyclicBehaviour {
 		}
 		this.myAgent.send(aclMessage);  
 	}
+	
+	public static boolean coincide1(String txt, String clave, int conTxt) {
+		boolean result = true;
+		int conCl = 0;
+		char t;
+		char c;
+		String tS;
+		String cS;
+		while((conCl< clave.length()) && result) {
+			t = clave.charAt(conCl);
+			c = txt.charAt(conTxt);
+			tS = Character.toString(t);
+			cS = Character.toString(c);
+			System.out.println("tS : " + tS + "\n");
+			System.out.println("cS : " + cS + "\n");
+			if(!tS.equalsIgnoreCase(cS)) {
+				result = false;
+			}
+			conTxt++;
+			conCl++;
+		}
+		return result;
+	}
 
-	public static boolean coincide(String txt, String clave, int conTxt) {
+	public static ArrayList<Integer> algoritmo1(String txt, String clave) {
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		int conTxt = 0;
+		int conCl = 0;
+		char t;
+		char c;
+		String tS;
+		String cS;
+		lista.add(clave.length());
+		while(conTxt < txt.length()) {
+			t = txt.charAt(conTxt);
+			c = clave.charAt(conCl);
+			tS = Character.toString(t);
+			cS = Character.toString(c);
+			if(tS.equalsIgnoreCase(cS)) {
+				if(coincide1(txt,clave,conTxt)) {
+					lista.add(conTxt);
+				}
+			}
+			conTxt++;
+		}
+		return lista;
+	}
+
+	public static boolean coincide2(String txt, String clave, int conTxt) {
 		boolean result = true;
 		int conCl = 0;
 		char t;
@@ -71,20 +118,75 @@ public class Comportamiento extends CyclicBehaviour {
 		}
 		return result;
 	}
-	public static ArrayList algoritmo(String txt, String clave) {
+
+	public static ArrayList<Integer> algoritmo2(String txt, String clave) {
 		ArrayList<Integer> lista = new ArrayList<Integer>();
 		int conTxt = 0;
 		int conCl = 0;
 		char t;
 		char c;
+		lista.add(clave.length());
 		while(conTxt < txt.length()) {
 			t = txt.charAt(conTxt);
 			c = clave.charAt(conCl);
 			if(t == c) {
-				if(coincide(txt,clave,conTxt)) {
+				if(coincide2(txt,clave,conTxt)) {
 					lista.add(conTxt);
 				}
 			}
+			conTxt++;
+		}
+		return lista;
+	}
+
+	
+	
+	public static ArrayList<Integer> algoritmo3(String txt, String clave) {
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		int conTxt = 0;
+		int puntero = 0;
+		String palTxt = "";
+		char t;
+		lista.add(clave.length());
+		while(conTxt < txt.length()) {
+			t = txt.charAt(conTxt);
+			if((t == ' ') || (t == ',') || (t == '.')){
+				System.out.println("PalTxt :" + palTxt + "\n");
+				if(palTxt.equalsIgnoreCase(clave)) {
+					lista.add(puntero);
+				}
+				palTxt = "";
+				puntero = conTxt+1;
+			}else {
+				palTxt = palTxt + t;
+			}
+
+			conTxt++;
+		}
+		return lista;
+	}
+
+
+	public static ArrayList<Integer> algoritmo4(String txt, String clave) {
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		int conTxt = 0;
+		int puntero = 0;
+		String palTxt = "";
+		char t;
+		lista.add(clave.length());
+		while(conTxt < txt.length()) {
+			t = txt.charAt(conTxt);
+			if((t == ' ') || (t == ',') || (t == '.')){
+				System.out.println("PalTxt :" + palTxt + "\n");
+				if(palTxt.equals(clave)) {
+					lista.add(puntero);
+				}
+				palTxt = "";
+				puntero = conTxt+1;
+			}else {
+				palTxt = palTxt + t;
+			}
+
 			conTxt++;
 		}
 		return lista;
