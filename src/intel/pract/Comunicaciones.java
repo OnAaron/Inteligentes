@@ -27,6 +27,7 @@ public class Comunicaciones {
 			if(res.length > 0) {
 				for(int i=0;i<res.length;i++) {
 					DFAgentDescription agente_res = res[i];
+					@SuppressWarnings("rawtypes")
 					Iterator cursor = agente_res.getAllServices();
 					while(cursor.hasNext()) {
 						ServiceDescription sc = (ServiceDescription) cursor.next();

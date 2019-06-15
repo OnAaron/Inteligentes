@@ -5,13 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import jade.content.lang.sl.SLCodec;
-import jade.core.Agent;
 import jade.core.behaviours.*;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Envelope;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
@@ -33,19 +28,6 @@ public class Comportamiento extends CyclicBehaviour {
 		ACLMessage aclMessage2 = new ACLMessage(ACLMessage.INFORM);
 		
 		try {
-			/*if(((String)msg.getContentObject()).equals("Soy resultado")) {
-				System.out.println("if "+(String)msg.getContentObject());
-				aclMessage.addReceiver(msg.getSender());
-				System.out.println((String)msg2.getContentObject());
-				//lamada a metodo
-				aclMessage.setContentObject((Serializable)msg2.getContentObject());
-			}
-			else {
-				System.out.println((String)msg2.getContentObject());
-				aclMessage.addReceiver(msg2.getSender());
-				System.out.println("else "+(String)msg.getContentObject());
-				aclMessage.setContentObject((Serializable)msg.getContentObject());
-			}*/
 			aclMessage.addReceiver(msg.getSender());
 			aclMessage2.addReceiver(msg.getSender());
 			aclMessage.setContentObject((Serializable)msg2.getContentObject());
