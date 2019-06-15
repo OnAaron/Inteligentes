@@ -51,11 +51,14 @@ public class Agente_Cliente extends Agent{
 			BufferedReader br;
 			String content = "";
 			archivo = new File(file);
-			fr = new FileReader(archivo);
-			br = new BufferedReader(fr);
+			//fr = new FileReader(archivo);
+			//br = new BufferedReader(fr);
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"ISO-8859-1"));
+
 			String linea;
 			while((linea=br.readLine())!=null)
 				content += linea+"\n";
+			System.out.println(content);
 			br.close();
 			return content;
 		}
