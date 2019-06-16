@@ -25,8 +25,8 @@ public class Agente_Cliente extends Agent{
 				if (content != null) {
 					System.out.print("Introduzca el patrón a buscar a buscar: ");
 					String patron = scanner.nextLine();
-					//System.out.println(content);
 					System.out.println("Elija una de las opciones de búsqueda:");
+					System.out.println("Las opciones 3 y 4 solo buscan palabras separadas por espacios, en caso contrario usar las opciones 1 y 2");
 					System.out.println("1.- Búsqueda por palabra no completa y no coinciden mayúsculas");
 					System.out.println("2.- Búsqueda por palabra no completa y coinciden mayúsculas");
 					System.out.println("3.- Búsqueda por palabra completa y no coinciden mayúsculas");
@@ -46,19 +46,12 @@ public class Agente_Cliente extends Agent{
 	}
 	public String getContenido(String file) {
 		try {
-			File archivo;
-			FileReader fr;
 			BufferedReader br;
 			String content = "";
-			archivo = new File(file);
-			//fr = new FileReader(archivo);
-			//br = new BufferedReader(fr);
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"ISO-8859-1"));
-
 			String linea;
 			while((linea=br.readLine())!=null)
 				content += linea+"\n";
-			System.out.println(content);
 			br.close();
 			return content;
 		}

@@ -15,7 +15,7 @@ import javax.swing.text.Highlighter;
 
 import jade.util.Logger;
 
-public class test extends JFrame{
+public class Ventana extends JFrame{
 	/**
 	 * 
 	 */
@@ -25,7 +25,7 @@ public class test extends JFrame{
 	private String text;
 	private ArrayList<Integer>res;
 	
-	public test() {
+	public Ventana() {
 		
 	}
 	
@@ -42,13 +42,11 @@ public class test extends JFrame{
 			setResizable(false);
 			setTitle("Fichero");
 			setLocation(200, 100);
-			//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			getContentPane().setBackground(Color.white);
 			setLayout(null);
 			scroll = new JScrollPane();
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			jt = new JTextArea();
-			//jt.setText(text);
 			jt.setEditable(false);
 			jt.setLineWrap(true);
 			jt.setWrapStyleWord(true);
@@ -71,7 +69,6 @@ public class test extends JFrame{
 			DefaultHighlighter.DefaultHighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.GREEN);
 			Highlighter h = area.getHighlighter();
 			h.removeAllHighlights();
-			//String text = area.getText();
 			int tam = lista.get(0);
 			for(int i=1;i<lista.size();i++) {
 				try {
@@ -81,7 +78,7 @@ public class test extends JFrame{
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(area, "la palabra a buscar no puede ser vacia");
+			JOptionPane.showMessageDialog(area, "fichero vacío");
 		}
 	}
 	public static void main(String[]args) {

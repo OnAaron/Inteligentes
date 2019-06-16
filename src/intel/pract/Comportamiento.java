@@ -51,22 +51,18 @@ public class Comportamiento extends CyclicBehaviour {
 		ArrayList<Integer> res = new ArrayList<>();
 		switch(Integer.parseInt(modo)) {
 		case 1:{
-			//PaSimple+No coinicde
 			res = algoritmo1(text, pattern);
 			break;
 		}
 		case 2:{
-			//PaSimple + Coincide
 			res = algoritmo2(text, pattern);
 			break;
 		}
 		case 3:{
-			//Completa+No coinc
 			res = algoritmo3(text, pattern);
 			break;
 		}
 		case 4:{
-			//Compñeta+Coind
 			res = algoritmo4(text, pattern);
 			break;
 		}
